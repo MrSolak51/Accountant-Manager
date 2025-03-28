@@ -209,7 +209,11 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_total`(
     in yearP varchar(4)
 )
 BEGIN
-	select get_total_earnings(user_idP, monthP, yearP) - get_total_expenses(user_idP, monthP, yearP) as total;
+
+	select sum(amount) as total_earnings from earnings where user_id=user_idP and month(saved_date)=monthP and year(saved_date)=yearP;
+	select sum(amount) as total_expenses from expenses where user_id=user_idP and month(saved_date)=monthP and year(saved_date)=yearP;
+
+	select total_earnings - total_expenses as total;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -232,7 +236,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_total_earnings`(
     in yearP varchar(4)
 )
 BEGIN
-	select sum(amount) as total_earnings from earnings where user_id=user_idP and month(date_)=monthP and year(date_)=yearP;
+	select sum(amount) as total_earnings from earnings where user_id=user_idP and month(saved_date)=monthP and year(saved_date)=yearP;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -255,7 +259,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_total_expenses`(
     in yearP varchar(4)
 )
 BEGIN
-	select sum(amount) as total_expenses from expenses where user_id=user_idP and month(date_)=monthP and year(date_)=yearP;
+	select sum(amount) as total_expenses from expenses where user_id=user_idP and month(saved_date)=monthP and year(saved_date)=yearP;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -273,11 +277,10 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_user`(
-	usernameP varchar(50),
-	passP varchar(50)
+	user_id int
 )
 BEGIN
-	select* from users where username=usernameP and pass=passP;
+	select* from users where id=user_id;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -358,7 +361,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `is_user_valid`(
 	in passwordP varchar(50)
 )
 BEGIN
-	IF EXISTS (select users where username=usernameP and pass=passwordP) THEN
+	IF EXISTS (select * from users where username=usernameP and pass=passwordP) THEN
 		select 1 as user_valid;
 	ELSE
 		select 0 as user_valid;
@@ -408,13 +411,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `update_statistics`(
 BEGIN
     -- Eğer kullanıcı varsa, güncelle
     IF EXISTS (SELECT* FROM statics WHERE user_id = user_idP and date_=date_P) THEN
-		SELECT SUM(amount) AS total_earningsC FROM earnings where date_=date_P and user_id=user_idP;
-		SELECT SUM(amount) AS total_expensesC FROM expenses where date_=date_P and user_id=user_idP;
+		SELECT SUM(amount) AS total_earningsC FROM earnings where saved_date=date_P and user_id=user_idP;
+		SELECT SUM(amount) AS total_expensesC FROM expenses where saved_date=date_P and user_id=user_idP;
         SELECT total_earningsC - total_expensesC AS totalC;
         UPDATE statics SET total_earnings=total_earningsC, total_expenses=total_expensesC, total=totalC WHERE user_id = user_idP and date_=date_P;
     ELSE 
-		SELECT SUM(amount) AS total_earningsC FROM earnings where date_=date_P and user_id=user_idP;
-		SELECT SUM(amount) AS total_expensesC FROM expenses where date_=date_P and user_id=user_idP;
+		SELECT SUM(amount) AS total_earningsC FROM earnings where saved_date=date_P and user_id=user_idP;
+		SELECT SUM(amount) AS total_expensesC FROM expenses where saved_date=date_P and user_id=user_idP;
         SELECT total_earningsC - total_expensesC AS totalC;
         INSERT INTO statics (user_id, total_earnings, total_expenses, total, date_) VALUES (user_idP, total_earningsC, total_expensesC, totalC, date_P);
     END IF;
