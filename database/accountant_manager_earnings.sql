@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: preminiliary_accountant
+-- Host: 127.0.0.1    Database: accountant_manager
 -- ------------------------------------------------------
 -- Server version	8.0.41
 
@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `expenses`
+-- Table structure for table `earnings`
 --
 
-DROP TABLE IF EXISTS `expenses`;
+DROP TABLE IF EXISTS `earnings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `expenses` (
+CREATE TABLE `earnings` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
   `header` varchar(50) DEFAULT NULL,
@@ -32,10 +32,19 @@ CREATE TABLE `expenses` (
   `saved_date` date DEFAULT NULL,
   `paid_date` date DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `user_id_expenses` (`user_id`),
-  CONSTRAINT `user_id_expenses` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2523 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `user_id_earnings` (`user_id`),
+  CONSTRAINT `user_id_earnings` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=257 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `earnings`
+--
+
+LOCK TABLES `earnings` WRITE;
+/*!40000 ALTER TABLE `earnings` DISABLE KEYS */;
+/*!40000 ALTER TABLE `earnings` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -46,4 +55,4 @@ CREATE TABLE `expenses` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-18  5:09:50
+-- Dump completed on 2025-03-28 10:59:55

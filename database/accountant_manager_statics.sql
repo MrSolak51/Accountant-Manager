@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: preminiliary_accountant
+-- Host: 127.0.0.1    Database: accountant_manager
 -- ------------------------------------------------------
 -- Server version	8.0.41
 
@@ -34,6 +34,15 @@ CREATE TABLE `statics` (
   CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `statics`
+--
+
+LOCK TABLES `statics` WRITE;
+/*!40000 ALTER TABLE `statics` DISABLE KEYS */;
+/*!40000 ALTER TABLE `statics` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -44,4 +53,4 @@ CREATE TABLE `statics` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-18  5:09:51
+-- Dump completed on 2025-03-28 10:59:56

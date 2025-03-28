@@ -18,7 +18,7 @@ Database::Database() {
         std::cerr << "MySQL can't start!" << std::endl;
     }
     // MariaDB / MySQL bağlantısı
-    conn = mysql_real_connect(conn, "localhost", "root", "root", "preminiliary_accountant", 3306, NULL, 0);
+    conn = mysql_real_connect(conn, "localhost", "root", "root", "accountant_manager", 3306, NULL, 0);
     if (conn) {
     } else {
         std::cerr << "Connection failed: " << mysql_error(conn) << std::endl;
@@ -216,50 +216,6 @@ void Database::add_expense(std::string header, std::string description, float am
         consumeResults();
     }
 }
-
-
-void Database::update_earning(int earning_id, std::string header, std::string description, float amount, bool paid, std::string date){
-    std::string update_earning_procedure = "CALL update_earning(" + std::to_string(user_id) + ", " + std::to_string(earning_id) + ", '" + header + "', '" + description + "', " + std::to_string(amount) + ", " + std::to_string(paid) + ", '" + date + "');";
-    if (mysql_query(conn, update_earning_procedure.c_str())) {
-        std::cerr << "UPDATE error: " << mysql_error(conn) << std::endl;
-    }
-    else {   
-        consumeResults();
-    }
-}
-
-
-void Database::update_expense(int expense_id, std::string header, std::string description, float amount, bool paid, std::string date){
-    std::string update_expense_procedure = "CALL update_expense(" + std::to_string(user_id) + ", " + std::to_string(expense_id) + ", '" + header + "', '" + description + "', " + std::to_string(amount) + ", " + std::to_string(paid) + ", '" + date + "');";
-    if (mysql_query(conn, update_expense_procedure.c_str())) {
-        std::cerr << "update_expense error: " << mysql_error(conn) << std::endl;
-    }
-    else {   
-        consumeResults();
-    }
-}
-
-
-void Database::delete_earning(int earning_id){
-    std::string delete_earning_procedure = "CALL delete_earning(" + std::to_string(user_id) + ", " + std::to_string(earning_id) + ");";
-    if (mysql_query(conn, delete_earning_procedure.c_str())) {
-        std::cerr << "DELETE error: " << mysql_error(conn) << std::endl;
-    }
-    else {   
-        consumeResults();
-    }
-}
-
-
-void Database::delete_expense(int expense_id){
-    std::string delete_expense_procedure = "CALL delete_expense(" + std::to_string(user_id) + ", " + std::to_string(expense_id) + ");";
-    if (mysql_query(conn, delete_expense_procedure.c_str())) {
-        std::cerr << "DELETE error: " << mysql_error(conn) << std::endl;
-    }
-    else {   
-        consumeResults();
-    }
-}  
 
 
 void Database::select_saved_earnings(){
