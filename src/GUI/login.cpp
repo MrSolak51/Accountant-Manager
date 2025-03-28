@@ -5,6 +5,10 @@ RegisterWindow::RegisterWindow(Gtk::Window& parent, Database* db)
 : Gtk::Dialog("Create Account", parent), db(db) {
     set_default_size(300, 300);
     // Box ve Butonlar
+
+    
+    password_entry.set_visibility(false);
+
     vbox.pack_start(first_name_label);
     vbox.pack_start(first_name_entry);
     vbox.pack_start(last_name_label);

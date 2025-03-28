@@ -12,17 +12,17 @@ protected:
 
 private:
     Gtk::Box vbox{Gtk::ORIENTATION_VERTICAL, 5};
-    Gtk::Label first_name_label{"Ad:"};
+    Gtk::Label first_name_label{"Name:"};
     Gtk::Entry first_name_entry;
-    Gtk::Label last_name_label{"Soyad:"};
+    Gtk::Label last_name_label{"Surname:"};
     Gtk::Entry last_name_entry;
-    Gtk::Label username_label{"Kullanıcı Adı:"};
+    Gtk::Label username_label{"Username:"};
     Gtk::Entry username_entry;
-    Gtk::Label email_label{"E-posta:"};
+    Gtk::Label email_label{"Email:"};
     Gtk::Entry email_entry;
-    Gtk::Label password_label{"Şifre:"};
+    Gtk::Label password_label{"Password:"};
     Gtk::Entry password_entry;
-    Gtk::Button register_button{"Hesap Oluştur"};
+    Gtk::Button register_button{"Create Account"};
     Database *db;
 };
 
@@ -38,12 +38,12 @@ protected:
 
 private:
     Gtk::Box vbox{Gtk::ORIENTATION_VERTICAL, 5};
-    Gtk::Label username_label{"Kullanıcı Adı:"};
+    Gtk::Label username_label{"Username:"};
     Gtk::Entry username_entry;
-    Gtk::Label password_label{"Şifre:"};
+    Gtk::Label password_label{"Password:"};
     Gtk::Entry password_entry;
-    Gtk::Button login_button{"Giriş Yap"};
-    Gtk::Button create_account_button{"Hesap Oluştur"};
+    Gtk::Button login_button{"Login"};
+    Gtk::Button create_account_button{"Create Account"};
     Database *db;
     Account * account;
 };    
